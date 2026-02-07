@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine?</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        /* Falling Hearts Animation */
+        .heart {
+            position: fixed;
+            top: -10px;
+            color: #ff4d4d;
+            font-size: 20px;
+            user-select: none;
+            z-index: 1000;
+            pointer-events: none;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(105vh);
+            }
+        }
+
+        #container {
+            z-index: 10;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            position: relative;
+            height: 60px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        #yesBtn {
+            background-color: #ff4d4d;
+            color: white;
+        }
+
+        #noBtn {
+            background-color: #ccc;
+            color: #333;
+            position: absolute;
+            left: 55%;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: #ff4d4d;
+            font-size: 1.2em;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Small screen adjustments */
+        @media (max-width: 600px) {
+            h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <h1 id="question">will u be my valentine..miss🥺♥️♥️</h1>
+        <div class="btn-container" id="buttonArea">
+            <button id="yesBtn" onclick="celebrate()">Yes</button>
+            <button id="noBtn" onmouseover="moveNo()" onclick="moveNo()">No</button>
+        </div>
+    </div>
+
+    <div id="successScreen" class="hidden">
+        <h1 style="max-width: 80%; margin: 0 auto;">
+            <span class="highlight">Happy propose day... I love ya so much gurll likee huge 😖😘</span><br><br>
+            <span style="font-size: 0.8rem; color: #777;">(i wanted to touch that bigg 🍑 of ur 's but u said u wont come so no pushing(there were other plans..too i was going to use my bd powers💀 ))</span>
+        </h1>
+    </div>
+
+    <script>
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+            heart.style.opacity = Math.random();
+            heart.style.fontSize = Math.random() * 10 + 10 + 'px';
+            
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+
+        setInterval(createHeart, 300);
+
+        function moveNo() {
+            const noBtn = document.getElementById('noBtn');
+            // Keeping the button within the visible viewport
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+        }
+
+        function celebrate() {
+            document.getElementById('container').classList.add('hidden');
+            document.getElementById('successScreen').classList.remove('hidden');
+            
+            // Heart storm!
+            setInterval(createHeart, 50);
+        }
+    </script>
+</body>
+</html>
